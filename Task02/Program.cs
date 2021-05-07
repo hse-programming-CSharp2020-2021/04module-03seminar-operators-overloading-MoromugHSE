@@ -32,6 +32,32 @@ namespace Task02
     {
         public decimal Population { get; set; }
         public decimal Area { get; set; }
+
+        public static State operator +(State a, State b)
+        {
+            decimal population = a.Population + b.Population;
+            decimal area = a.Area + b.Area;
+            if (population < 0 || !(area > 0))
+                throw new ArgumentException("Такое государство не может существовать!");
+            return new State {Population = population, Area = area};
+        }
+
+        private decimal GetDensity()
+        {
+            if (Population < 0 || !(Area > 0))
+                throw new Exception("Такое государство не должно существовать!");
+            return Population / Area;
+        }
+
+        public static bool operator < (State a, State b)
+        {
+            return a.GetDensity() < b.GetDensity();
+        }
+
+        public static bool operator > (State a, State b)
+        {
+            return a.GetDensity() > b.GetDensity();
+        }
     }
 
     class MainClass
