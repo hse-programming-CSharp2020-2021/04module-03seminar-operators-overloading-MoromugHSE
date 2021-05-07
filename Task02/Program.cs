@@ -81,12 +81,12 @@ namespace Task02
                 }
 
                 State state3 = state1 + state2;
+                Console.WriteLine(state3);
             }
             catch (ArgumentException)
             {
                 Console.WriteLine("error");
             }
-            Console.WriteLine(state3);
         }
     }
 }

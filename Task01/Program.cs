@@ -54,13 +54,12 @@ namespace Task01
                 Bread bread = new Bread {Weight = int.Parse(strs[0])};
                 Butter butter = new Butter {Weight = int.Parse(strs[1])};
                 Sandwich sandwich = bread + butter;
+                Console.WriteLine(sandwich.Weight);
             }
             catch (ArgumentException)
             {
                 Console.WriteLine("error");
             }
-
-            Console.WriteLine(sandwich.Weight);
         }
     }
 }
