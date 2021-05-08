@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Globalization;
+using System.Threading;
 
 /*
 Источник: https://metanit.com/
@@ -62,6 +64,9 @@ namespace Task04
     {
         public static void Main(string[] args)
         {
+            var cultureInfo = new CultureInfo("ru-RU");
+            Thread.CurrentThread.CurrentCulture = cultureInfo;
+            Thread.CurrentThread.CurrentUICulture = cultureInfo;
             var fahrenheit = new Fahrenheit {Gradus = double.Parse(Console.ReadLine())};
             var celcius = new Celcius {Gradus = double.Parse(Console.ReadLine())};
             Console.WriteLine((Celcius)fahrenheit);
