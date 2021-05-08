@@ -45,7 +45,7 @@ namespace Task02
         private decimal GetDensity()
         {
             if (Population < 0 || !(Area > 0))
-                throw new Exception("Такое государство не должно существовать!");
+                throw new ArgumentException("Такое государство не должно существовать!");
             return Population / Area;
         }
 
