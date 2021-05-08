@@ -58,6 +58,11 @@ namespace Task02
         {
             return a.GetDensity() > b.GetDensity();
         }
+
+        public override string ToString()
+        {
+            return $"{Area} {Population}";
+        }
     }
 
     class MainClass
