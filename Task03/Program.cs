@@ -30,6 +30,25 @@ namespace Task03
     class Clock
     {
         public int Hours { get; set; }
+
+        public static implicit operator Clock(int min)
+        {
+            if (min < 0)
+                throw new ArgumentException("Плохие минуты");
+            return new Clock {Hours = min / 60};
+        }
+        
+        public static explicit operator int (Clock clock)
+        {
+            if (clock.Hours < 0)
+                throw new ArgumentException("Плохие часы");
+            return clock.Hours * 60;
+        }
+
+        public override string ToString()
+        {
+            return $"{Hours}";
+        }
     }
 
     class MainClass
@@ -40,14 +59,13 @@ namespace Task03
             try
             {
                 Clock clock = new Clock { Hours = int.Parse(Console.ReadLine()) };
+                Console.WriteLine((Clock)minute);
+                Console.WriteLine((int)clock);
             }
             catch (ArgumentException)
             {
                 Console.WriteLine("error");
             }
-
-            Console.WriteLine((Clock)minute);
-            Console.WriteLine((int)clock);
         }
     }
 }

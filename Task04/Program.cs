@@ -19,26 +19,53 @@
 
 Никаких дополнительных символов выводиться не должно.
 
-Код метода Main можно подвергнуть изменениям, но вывод меняться не должен.
+Код метода Main можно подвергнуть изменениям, но celвывод меняться не должен.
 */
 
 namespace Task04
 {
     class Celcius
     {
+        private const double ToFahrenheitMult = 9.0 / 5.0;
+        private const double ToFahrenheitAdd = 32;
         public double Gradus { get; set; }
+
+        public static explicit operator Fahrenheit(Celcius celcius)
+        {
+            return new Fahrenheit {Gradus = ToFahrenheitMult * celcius.Gradus + ToFahrenheitAdd};
+        }
+
+        public override string ToString()
+        {
+            return $"{Gradus:F2}";
+        }
     }
 
     class Fahrenheit
     {
+        private const double ToCelsiusMult = 5.0 / 9.0;
+        private const double ToCelciusAdd = 32;
         public double Gradus { get; set; }
+
+        public static explicit operator Celcius(Fahrenheit fahrenheit)
+        {
+            return new Celcius {Gradus = ToCelsiusMult * (fahrenheit.Gradus - ToCelciusAdd)};
+        }
+
+        public override string ToString()
+        {
+            return $"{Gradus:F2}";
+        }
     }
 
     class MainClass
     {
         public static void Main(string[] args)
         {
-
+            var fahrenheit = new Fahrenheit {Gradus = double.Parse(Console.ReadLine())};
+            var celcius = new Celcius {Gradus = double.Parse(Console.ReadLine())};
+            Console.WriteLine((Celcius)fahrenheit);
+            Console.WriteLine((Fahrenheit)celcius);
         }
     }
 }
