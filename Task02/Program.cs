@@ -51,12 +51,12 @@ namespace Task02
 
         public static bool operator < (State a, State b)
         {
-            return a.GetDensity() < b.GetDensity();
+            return a.GetDensity() > b.GetDensity();
         }
 
         public static bool operator > (State a, State b)
         {
-            return a.GetDensity() > b.GetDensity();
+            return a.GetDensity() < b.GetDensity();
         }
 
         public override string ToString()
