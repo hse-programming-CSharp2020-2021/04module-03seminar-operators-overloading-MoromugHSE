@@ -35,11 +35,68 @@ public readonly struct Fraction
 
     public Fraction(int numerator, int denominator)
     {
-        num = numerator;
-        den = denominator;
+        switch (denominator)
+        {
+            case 0:
+                throw new ArgumentException("Ноль нельзя!");
+            case int n when n < 0:
+                numerator *= -1;
+                denominator *= -1;
+                break;
+        }
+        var gcd = FindGcd(Math.Abs(numerator), denominator);
+        num = numerator / gcd;
+        den = denominator / gcd;
     }
 
-    public override string ToString() => $"{num}/{den}";
+    public static int FindGcd(int a, int b)
+    {
+        while (b != 0)
+        {
+            a %= b;
+            a ^= b;
+            b ^= a;
+            a ^= b;
+        }
+
+        return a + b;
+    }
+
+    public static Fraction operator +(Fraction a, Fraction b)
+    {
+        var num = a.num * b.den + b.num * a.den;
+        var den = a.den * b.den;
+        return new Fraction(num, den);
+    }
+
+    public static Fraction operator -(Fraction a, Fraction b)
+    {
+        var num = a.num * b.den - b.num * a.den;
+        var den = a.den * b.den;
+        return new Fraction(num, den);
+    }
+
+    public static Fraction operator *(Fraction a, Fraction b)
+    {
+        var num = a.num * b.num;
+        var den = a.den * b.den;
+        return new Fraction(num, den);
+    }
+
+    public static Fraction operator /(Fraction a, Fraction b)
+    {
+        if (b.den == 0)
+            throw new DivideByZeroException("Ноль нельзя!");
+        var num = a.num * b.den;
+        var den = a.den * b.num;
+        return new Fraction(num, den);
+    }
+
+    public override string ToString()
+    {
+        if (num == 0 || den == 1) return $"{num}";
+        return $"{num}/{den}";
+    }
 }
 
 public static class OperatorOverloading
@@ -48,7 +105,14 @@ public static class OperatorOverloading
     {
         try
         {
-            
+            var numden = Console.ReadLine().Split('/');
+            var frac1 = new Fraction(int.Parse(numden[0]), int.Parse(numden[1]));
+            numden = Console.ReadLine().Split('/');
+            var frac2 = new Fraction(int.Parse(numden[0]), int.Parse(numden[1]));
+            Console.WriteLine(frac1 + frac2);
+            Console.WriteLine(frac1 - frac2);
+            Console.WriteLine(frac1 * frac2);
+            Console.WriteLine(frac1 / frac2);
         }
         catch (ArgumentException)
         {
