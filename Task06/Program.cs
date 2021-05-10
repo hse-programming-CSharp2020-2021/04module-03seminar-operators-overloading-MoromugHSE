@@ -85,7 +85,7 @@ public readonly struct Fraction
 
     public static Fraction operator /(Fraction a, Fraction b)
     {
-        if (b.den == 0)
+        if (b.num == 0)
             throw new DivideByZeroException("Ноль нельзя!");
         var num = a.num * b.den;
         var den = a.den * b.num;

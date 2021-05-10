@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Threading;
+using System.Globalization;
 
 /*
 Источник: https://metanit.com/
@@ -66,6 +68,9 @@ namespace Task05
     {
         public static void Main(string[] args)
         {
+            var cultureInfo = new CultureInfo("ru-RU");
+            Thread.CurrentThread.CurrentCulture = cultureInfo;
+            Thread.CurrentThread.CurrentUICulture = cultureInfo;
             try
             {
                 var dollar = new Dollar { Sum = decimal.Parse(Console.ReadLine()) };
